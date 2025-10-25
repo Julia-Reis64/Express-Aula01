@@ -13,8 +13,33 @@ class ProductService{
             throw new Error("Produto já cadastrado")
         }
 
-        return ProductRepository.create(newProduct);
+        const productEntity = new Product(newProduct);
+
+        return ProductRepository.create(productEntity);
     }
+
+    delete(id){
+       this.findById(id);
+
+        ProductRepository.delete(id);
+
+        return;
+    }
+
+    findById(id){
+        const existingProduct = ProductRepository.findById(id);
+
+        if(!existingProduct){
+            throw new Error("Produto não existe");
+        }
+
+        return existingProduct;
+    }
+
+    update(id,values){
+        const existingProduct = this.findById(id);
 }
+
+
 
 module.exports = new ProductService();

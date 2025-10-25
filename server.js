@@ -11,19 +11,9 @@ let productsList = [{
     quantity: 4
 }];
 
-server.get("/products", (request, response) => {
-    response.json(productsList);
-});
-
-server.post("/products", (request, response) => {
-    const newProduct = request.body;
-    const newId = productsList.length + 1;
-
-    newProduct.id = newId;
-    productsList.push(newProduct);
-
-    response.status(201).json(newProduct);
-});
+server.get("/products", productController.list);
+server.post("/products", productController.create);
+server.delete("/products/:id", productController.delete);
 
 server.get("/", (request, response) => {
     response.send("Hello World!");
@@ -31,6 +21,6 @@ server.get("/", (request, response) => {
 
 });
 
-server.listen(port,() => {
+server.listen(port, () => {
     console.log("Projeto rodando na porta " + port);
-})
+});

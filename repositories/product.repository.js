@@ -7,6 +7,15 @@ let productlist = [
     },];
         class ProductRepository{
 
+            findAll() {
+                return productlist;
+            }
+
+            findById(id){
+                return productlist.find((product) => product.id === Number(id));
+            }
+
+
             findByName(name){
                 const product = productlist.find(
                     product => product.name.toLowerCase() === name.toLowerCase()
@@ -14,6 +23,26 @@ let productlist = [
 
                 return product;
             }
+
+             create(newProduct) {
+                const newId = productsList.length + 1;
+
+                newProduct.id = newId;
+                productsList.push(newProduct);
+
+                return newProduct;
+            }
+
+            delete(id){
+                const productIndex = productlist.findIndex(
+                    (product) => product.id === Number(id));
+
+                if (productIndex !== -1) {
+                    return false;
+                }
+
+                productList.splice(productIndex, 1);
+            }   
         }
 
           /** 
@@ -23,5 +52,5 @@ let productlist = [
              @returns O novo produto cadastrado, incluindo seu ID único
             */
 
-modele.exposrts = new ProductRepository(); 
+module.exports = new ProductRepository(); 
 
